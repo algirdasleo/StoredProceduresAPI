@@ -6,5 +6,5 @@ CREATE PROCEDURE CreateNewSalesOrderDetail
 AS
 BEGIN
     INSERT INTO SalesLT.SalesOrderDetail(SalesOrderID, OrderQty, ProductID, UnitPrice)
-    VALUES(@SalesOrderID, @OrderQty, @ProductID, @UnitPrice)
+    VALUES(@SalesOrderID, @OrderQty, @ProductID, @UnitPrice);
 END

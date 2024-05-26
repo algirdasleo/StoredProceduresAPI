@@ -5,5 +5,5 @@ CREATE PROCEDURE CreateNewSalesOrderHeader
 AS
 BEGIN
     INSERT INTO SalesLT.SalesOrderHeader (DueDate, CustomerID, ShipMethod)
-    VALUES (@DueDate, @CustomerID, @ShipMethod)
+    VALUES (@DueDate, @CustomerID, @ShipMethod);
 END

@@ -71,7 +71,7 @@ namespace API.Services
                     "dbo.CreateNewProductDescription",
                     new
                     {
-                        Description = productDescription.Description
+                        ProductDescription = productDescription.Description
                     },
                     commandType: CommandType.StoredProcedure
                 );

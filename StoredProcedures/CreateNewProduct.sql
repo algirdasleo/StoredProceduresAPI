@@ -6,7 +6,7 @@ CREATE PROCEDURE CreateNewProduct
     @StandardCost MONEY,
     @ListPrice MONEY,
     @SellStartDate DATETIME,
-    @ErrorMessage NVARCHAR(4000) OUTPUT -- 
+    @ErrorMessage NVARCHAR(4000) OUTPUT 
 AS
 BEGIN
     IF @ProductModelID IS NOT NULL

@@ -24,8 +24,8 @@ BEGIN
     END
 
     DECLARE @AddressID INT;
-    INSERT INTO SalesLT.Address (AddressLine1, AddressLine2, City, StateProvince, CountryRegion, PostalCode, CustomerID)
-    VALUES (@AddressLine1, @AddressLine2, @City, @StateProvince, @CountryRegion, @PostalCode, @CustomerID);
+    INSERT INTO SalesLT.Address (AddressLine1, AddressLine2, City, StateProvince, CountryRegion, PostalCode)
+    VALUES (@AddressLine1, @AddressLine2, @City, @StateProvince, @CountryRegion, @PostalCode);
     SET @AddressID = SCOPE_IDENTITY();
 
     IF @AddressID IS NULL

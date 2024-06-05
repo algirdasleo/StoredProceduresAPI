@@ -10,14 +10,16 @@ BEGIN
     END
 
     SELECT
-        ProductID,
-        Name,
-        ProductNumber,
-        ProductModelID,
-        ProductCategoryID,
-        StandardCost,
-        ListPrice,
-        SellStartDate
-    FROM SalesLT.Product
+        p.Name,
+        p.ProductNumber,
+        p.ProductModelID,
+        p.ProductCategoryID,
+        pd.Description,
+        p.StandardCost,
+        p.ListPrice,
+        p.SellStartDate
+    FROM SalesLT.Product p
+    JOIN SalesLT.ProductModelProductDescription pmpd ON p.ProductModelID = pmpd.ProductModelID
+    JOIN SalesLT.ProductDescription pd ON pmpd.ProductDescriptionID = pd.ProductDescriptionID
     WHERE ProductID = @ProductID;
 END

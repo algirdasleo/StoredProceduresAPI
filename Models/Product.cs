@@ -9,6 +9,7 @@ namespace API.Models
         public int? ProductModelId { get; set; }
         public int? ProductCategoryId { get; set; }
         public string? ProductDescription { get; set; } = string.Empty;
+        public string? Culture { get; set; } = string.Empty;
         public decimal StandardCost { get; set; } = 0;
         public decimal ListPrice { get; set; } = 0;
         public DateTime SellStartDate { get; set; } = DateTime.MinValue; 

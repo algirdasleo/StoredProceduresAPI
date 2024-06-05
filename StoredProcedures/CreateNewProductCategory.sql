@@ -9,8 +9,5 @@ BEGIN
     SET @ProductCategoryID = SCOPE_IDENTITY();
     
     IF @ProductCategoryID IS NULL
-    BEGIN
         SET @ErrorMessage = 'Failed to create new product category.';
-        RETURN;
-    END
 END

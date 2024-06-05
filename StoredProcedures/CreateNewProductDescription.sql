@@ -9,7 +9,5 @@ BEGIN
     SET @ProductDescriptionId = SCOPE_IDENTITY();
 
     IF @ProductDescriptionId IS NULL
-    BEGIN
         SET @ErrorMessage = 'Failed to create new product description';
-    END
 END

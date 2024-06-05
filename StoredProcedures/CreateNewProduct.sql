@@ -19,7 +19,7 @@ BEGIN
 
     IF @ProductDescription IS NOT NULL
     BEGIN
-        IF EXISTS (SELECT 1 FROM ProductModelProductDescription WHERE ProductModelID = @ProductModelID)
+        IF EXISTS (SELECT 1 FROM SalesLT.ProductModelProductDescription WHERE ProductModelID = @ProductModelID)
         BEGIN
             IF @ErrorMessage IS NULL 
                 SET @ErrorMessage = 'Product Model already has a description.';

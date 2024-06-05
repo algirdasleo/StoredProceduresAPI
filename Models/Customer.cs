@@ -8,6 +8,7 @@ namespace API.Models
         public string PasswordSalt { get; set; } = string.Empty;
         public string AddressLine1 { get; set; } = string.Empty;
         public string? AddressLine2 { get; set; } = string.Empty;
+        public string? AddressType { get; set; } = string.Empty;
         public string City { get; set; } = string.Empty;
         public string StateProvince { get; set; } = string.Empty;
         public string CountryRegion { get; set; } = string.Empty;

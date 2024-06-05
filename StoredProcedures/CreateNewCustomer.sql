@@ -5,6 +5,7 @@ CREATE PROCEDURE CreateNewCustomer
     @PasswordSalt VARCHAR(10),
     @AddressLine1 NVARCHAR(60), 
     @AddressLine2 NVARCHAR(60) = NULL,  -- Optional parameter
+    @AddressType NVARCHAR(30) = 'Home', -- Optional parameter, with default value
     @City NVARCHAR(30),
     @StateProvince dbo.Name,
     @CountryRegion dbo.Name,
@@ -34,6 +35,6 @@ BEGIN
         RETURN;
     END
     
-    INSERT INTO SalesLT.CustomerAddress (CustomerID, AddressID)
-    VALUES (@CustomerID, @AddressID);
+    INSERT INTO SalesLT.CustomerAddress (CustomerID, AddressID, AddressType)
+    VALUES (@CustomerID, @AddressID, @AddressType);
 END

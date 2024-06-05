@@ -4,6 +4,7 @@ CREATE PROCEDURE CreateNewProduct
     @ProductModelID INT = NULL,                -- optional parameter
     @ProductCategoryID INT = NULL,             -- optional parameter
     @ProductDescription NVARCHAR(4000) = NULL, -- optional parameter
+    @Culture NVARCHAR(6) = 'en',               -- optional parameter, with default value
     @StandardCost MONEY,
     @ListPrice MONEY,
     @SellStartDate DATETIME,
@@ -39,8 +40,8 @@ BEGIN
             INSERT INTO SalesLT.ProductDescription (Description)
             VALUES (@ProductDescription);
             SET @ProductDescriptionID = SCOPE_IDENTITY();
-            INSERT INTO SalesLT.ProductModelProductDescription (ProductModelID, ProductDescriptionID)
-            VALUES (@ProductModelID, @ProductDescriptionID);
+            INSERT INTO SalesLT.ProductModelProductDescription (ProductModelID, ProductDescriptionID, Culture)
+            VALUES (@ProductModelID, @ProductDescriptionID, @Culture);
         END
     END
 END

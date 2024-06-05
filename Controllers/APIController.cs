@@ -31,7 +31,7 @@ namespace API.Controllers
             var (rowsAffected, ErrorMessage) = await _dbService.CreateNewCustomer(customer);
             if (ErrorMessage != null)
                 return BadRequest(ErrorMessage);
-            return Ok(rowsAffected);
+            return Ok("Success. New customer created. Rows affected: " + rowsAffected);
         }
 
         [HttpPost("CreateNewProduct")]
@@ -40,7 +40,7 @@ namespace API.Controllers
             var (rowsAffected, ErrorMessage) = await _dbService.CreateNewProduct(product);
             if (ErrorMessage != null)
                 return BadRequest(ErrorMessage);
-            return Ok(rowsAffected);
+            return Ok("Success. New product created. Rows affected: " + rowsAffected);
         }
 
         [HttpPost("CreateNewProductCategory")]
@@ -49,7 +49,7 @@ namespace API.Controllers
             var (rowsAffected, ErrorMessage) = await _dbService.CreateNewProductCategory(productCategory);
             if (ErrorMessage != null)
                 return BadRequest(ErrorMessage);
-            return Ok(rowsAffected);
+            return Ok("Success. New product category created. Rows affected: " + rowsAffected);
         }
 
         [HttpPost("CreateNewProductDescription")]
@@ -58,7 +58,7 @@ namespace API.Controllers
             var (rowsAffected, ErrorMessage) = await _dbService.CreateNewProductDescription(productDescription);
             if (ErrorMessage != null)
                 return BadRequest(ErrorMessage);
-            return Ok(rowsAffected);
+            return Ok("Success. New product description created. Rows affected: " + rowsAffected);
         }
 
         [HttpPost("CreateNewSalesOrderDetail")]
@@ -67,7 +67,7 @@ namespace API.Controllers
             var (rowsAffected, ErrorMessage) = await _dbService.CreateNewSalesOrderDetail(salesOrderDetail);
             if (ErrorMessage != null)
                 return BadRequest(ErrorMessage);
-            return Ok(rowsAffected);
+            return Ok("Success. New sales order detail created. Rows affected: " + rowsAffected);
         }
 
         [HttpPost("CreateNewSalesOrderHeader")]
@@ -76,7 +76,7 @@ namespace API.Controllers
             var (rowsAffected, ErrorMessage) = await _dbService.CreateNewSalesOrderHeader(salesOrderHeader);
             if (ErrorMessage != null)
                 return BadRequest(ErrorMessage);
-            return Ok(rowsAffected);
+            return Ok("Success. New sales order header created. Rows affected: " + rowsAffected);
         }
 
         [HttpPut("{salesOrderID}/{statusID}")]

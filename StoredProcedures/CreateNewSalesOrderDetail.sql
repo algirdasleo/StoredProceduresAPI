@@ -20,16 +20,9 @@ BEGIN
     END
 
     DECLARE @SalesOrderDetailID INT;
-    IF @UnitPriceDiscount IS NULL
-    BEGIN
-        INSERT INTO SalesLT.SalesOrderDetail(SalesOrderID, OrderQty, ProductID, UnitPrice)
-        VALUES(@SalesOrderID, @OrderQty, @ProductID, @UnitPrice);
-    END
-    ELSE
-    BEGIN
-        INSERT INTO SalesLT.SalesOrderDetail(SalesOrderID, OrderQty, ProductID, UnitPrice, UnitPriceDiscount)
-        VALUES(@SalesOrderID, @OrderQty, @ProductID, @UnitPrice, @UnitPriceDiscount);
-    END
+
+    INSERT INTO SalesLT.SalesOrderDetail (SalesOrderID, OrderQty, ProductID, UnitPrice, UnitPriceDiscount)
+    VALUES (@SalesOrderID, @OrderQty, @ProductID, @UnitPrice, @UnitPriceDiscount);
 
     SET @SalesOrderDetailID = SCOPE_IDENTITY();
 

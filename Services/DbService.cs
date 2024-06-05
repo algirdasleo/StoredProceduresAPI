@@ -44,6 +44,7 @@ namespace API.Services
                 parameters.Add("@PasswordSalt", customer.PasswordSalt);
                 parameters.Add("@AddressLine1", customer.AddressLine1);
                 parameters.Add("@AddressLine2", customer.AddressLine2);
+                parameters.Add("@AddressType", customer.AddressType);
                 parameters.Add("@City", customer.City);
                 parameters.Add("@StateProvince", customer.StateProvince);
                 parameters.Add("@CountryRegion", customer.CountryRegion);
@@ -70,6 +71,7 @@ namespace API.Services
                 parameters.Add("ProductModelID", product.ProductModelId);
                 parameters.Add("@ProductCategoryID", product.ProductCategoryId);
                 parameters.Add("@ProductDescription", product.ProductDescription);
+                parameters.Add("@Culture", product.Culture);
                 parameters.Add("@StandardCost", product.StandardCost);
                 parameters.Add("@ListPrice", product.ListPrice);
                 parameters.Add("@SellStartDate", product.SellStartDate);

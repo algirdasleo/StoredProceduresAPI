@@ -1,36 +1,21 @@
 CREATE PROCEDURE CreateNewProduct
     @Name DBO.NAME,
     @ProductNumber NVARCHAR(25),
-    @ProductModelID INT,                -- optional parameter
-    @ProductCategoryID INT,             -- optional parameter
-    @ProductDescription NVARCHAR(4000), -- optional parameter
+    @ProductModelID INT = NULL,                -- optional parameter
+    @ProductCategoryID INT = NULL,             -- optional parameter
+    @ProductDescription NVARCHAR(4000) = NULL, -- optional parameter
     @StandardCost MONEY,
     @ListPrice MONEY,
     @SellStartDate DATETIME,
     @ErrorMessage NVARCHAR(4000) OUTPUT 
 AS
 BEGIN
-    IF @ProductModelID IS NOT NULL
-    BEGIN
-        IF NOT EXISTS (SELECT 1 FROM SalesLT.ProductModel WHERE ProductModelID = @ProductModelID)
-        BEGIN
-            IF @ErrorMessage IS NULL 
-                SET @ErrorMessage = 'Invalid Product Model ID.';
-            ELSE
-                SET @ErrorMessage = @ErrorMessage + ' Invalid Product Model ID.';
-        END
-    END
+    IF @ProductModelID IS NOT NULL AND NOT EXISTS (SELECT 1 FROM SalesLT.ProductModel WHERE ProductModelID = @ProductModelID)
+        SET @ErrorMessage = COALESCE(@ErrorMessage + ' ', '') + 'Invalid Product Model ID.';
 
-    IF @ProductCategoryID IS NOT NULL
-    BEGIN
-        IF NOT EXISTS (SELECT 1 FROM SalesLT.ProductCategory WHERE ProductCategoryID = @ProductCategoryID)
-        BEGIN
-            IF @ErrorMessage IS NULL 
-                SET @ErrorMessage = 'Invalid Product Category ID.';
-            ELSE
-                SET @ErrorMessage = @ErrorMessage + ' Invalid Product Category ID.';
-        END
-    END
+
+    IF @ProductCategoryID IS NOT NULL AND NOT EXISTS (SELECT 1 FROM SalesLT.ProductCategory WHERE ProductCategoryID = @ProductCategoryID)
+        SET @ErrorMessage = COALESCE(@ErrorMessage + ' ', '') + 'Invalid Product Category ID.';
 
     IF @ProductDescription IS NOT NULL
     BEGIN

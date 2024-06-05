@@ -4,7 +4,7 @@ CREATE PROCEDURE CreateNewCustomer
     @PasswordHash VARCHAR(128),
     @PasswordSalt VARCHAR(10),
     @AddressLine1 NVARCHAR(60), 
-    @AddressLine2 NVARCHAR(60),
+    @AddressLine2 NVARCHAR(60) = NULL,  -- Optional parameter
     @City NVARCHAR(30),
     @StateProvince dbo.Name,
     @CountryRegion dbo.Name,

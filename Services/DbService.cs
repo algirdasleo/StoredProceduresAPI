@@ -68,8 +68,10 @@ namespace API.Services
                 var parameters = new DynamicParameters();
                 parameters.Add("@Name", product.Name);
                 parameters.Add("@ProductNumber", product.ProductNumber);
-                parameters.Add("ProductModelID", product.ProductModelId);
+                parameters.Add("@ProductModelID", product.ProductModelId);
+                parameters.Add("@ProductModelName", product.ProductModelName);
                 parameters.Add("@ProductCategoryID", product.ProductCategoryId);
+                parameters.Add("@ProductCategoryName", product.ProductCategoryName);
                 parameters.Add("@ProductDescription", product.ProductDescription);
                 parameters.Add("@Culture", product.Culture);
                 parameters.Add("@StandardCost", product.StandardCost);

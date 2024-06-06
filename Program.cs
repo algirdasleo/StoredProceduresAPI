@@ -12,7 +12,9 @@ builder.Services.AddSingleton<ConnectionFactory>(provider =>
     return new ConnectionFactory(connectionString);
 }
 );
-builder.Services.AddSingleton<DbService>();
+
+builder.Services.AddSingleton<CommandFactory>();
+builder.Services.AddTransient<DbService>();
 
 var app = builder.Build();
 if (app.Environment.IsDevelopment())

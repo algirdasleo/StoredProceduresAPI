@@ -1,10 +1,12 @@
 CREATE PROCEDURE CreateNewProduct
     @Name DBO.NAME,
     @ProductNumber NVARCHAR(25),
-    @ProductModelID INT = NULL,                -- optional parameter
-    @ProductCategoryID INT = NULL,             -- optional parameter
-    @ProductDescription NVARCHAR(4000) = NULL, -- optional parameter
-    @Culture NVARCHAR(6) = 'en',               -- optional parameter, with default value
+    @ProductModelID INT = NULL,                            -- optional parameter, leave null to create new product model
+    @ProductModelName NVARCHAR(50) = NULL,                 -- optional parameter
+    @ProductCategoryID INT = NULL,                         -- optional parameter, leave null to create new product category
+    @ProductCategoryName NVARCHAR(50) = NULL,              -- optional parameter
+    @ProductDescription NVARCHAR(4000) = NULL,             -- optional parameter
+    @Culture NVARCHAR(6) = NULL,                           -- optional parameter
     @StandardCost MONEY,
     @ListPrice MONEY,
     @SellStartDate DATETIME,
@@ -13,7 +15,6 @@ AS
 BEGIN
     IF @ProductModelID IS NOT NULL AND NOT EXISTS (SELECT 1 FROM SalesLT.ProductModel WHERE ProductModelID = @ProductModelID)
         SET @ErrorMessage = COALESCE(@ErrorMessage + ' ', '') + 'Invalid Product Model ID.';
-
 
     IF @ProductCategoryID IS NOT NULL AND NOT EXISTS (SELECT 1 FROM SalesLT.ProductCategory WHERE ProductCategoryID = @ProductCategoryID)
         SET @ErrorMessage = COALESCE(@ErrorMessage + ' ', '') + 'Invalid Product Category ID.';
@@ -28,20 +29,44 @@ BEGIN
                 SET @ErrorMessage = @ErrorMessage + ' Product Model already has a description.';
         END
     END
-
-    INSERT INTO SalesLT.Product (Name, ProductNumber, ProductModelID, ProductCategoryID, StandardCost, ListPrice, SellStartDate)
-    VALUES (@Name, @ProductNumber, @ProductModelID, @ProductCategoryID, @StandardCost, @ListPrice, @SellStartDate);
-
+    
+    DECLARE @ProductDescriptionID INT;
     IF @ProductDescription IS NOT NULL
     BEGIN
         IF NOT EXISTS (SELECT ProductDescriptionID FROM SalesLT.ProductModelProductDescription WHERE ProductModelID = @ProductModelID)
         BEGIN
-            DECLARE @ProductDescriptionID INT;
             INSERT INTO SalesLT.ProductDescription (Description)
             VALUES (@ProductDescription);
             SET @ProductDescriptionID = SCOPE_IDENTITY();
-            INSERT INTO SalesLT.ProductModelProductDescription (ProductModelID, ProductDescriptionID, Culture)
-            VALUES (@ProductModelID, @ProductDescriptionID, @Culture);
         END
     END
+    ELSE IF @ProductDescription IS NOT NULL
+    BEGIN
+        INSERT INTO SalesLT.ProductDescription (Description)
+        VALUES (@ProductDescription);
+        SET @ProductDescriptionID = SCOPE_IDENTITY();
+    END
+
+    IF @ProductModelID IS NULL AND @ProductModelName IS NOT NULL
+    BEGIN
+        INSERT INTO SalesLT.ProductModel (Name)
+        VALUES (@ProductModelName);
+        SET @ProductModelID = SCOPE_IDENTITY();
+    END
+
+    IF @ProductModelID IS NOT NULL AND @ProductDescriptionID IS NOT NULL AND @Culture IS NOT NULL
+    BEGIN
+        INSERT INTO SalesLT.ProductModelProductDescription (ProductModelID, ProductDescriptionID, Culture)
+        VALUES (@ProductModelID, @ProductDescriptionID, @Culture);
+    END
+
+    IF @ProductCategoryName IS NOT NULL
+    BEGIN
+        INSERT INTO SalesLT.ProductCategory(Name)
+        VALUES (@ProductCategoryName);
+        SET @ProductCategoryID = SCOPE_IDENTITY();
+    END
+
+    INSERT INTO SalesLT.Product (Name, ProductNumber, ProductModelID, ProductCategoryID, StandardCost, ListPrice, SellStartDate)
+    VALUES (@Name, @ProductNumber, @ProductModelID, @ProductCategoryID, @StandardCost, @ListPrice, @SellStartDate);
 END
